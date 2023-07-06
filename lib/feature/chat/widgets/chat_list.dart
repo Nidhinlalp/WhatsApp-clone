@@ -4,20 +4,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
+
 import 'package:whatsapp/common/enums/masseg_enum.dart';
 import 'package:whatsapp/common/provider/message_replay_provider.dart';
-
 import 'package:whatsapp/common/widgets/loader.dart';
 import 'package:whatsapp/feature/chat/controller/chat_controller.dart';
-import 'package:whatsapp/model/message.dart';
 import 'package:whatsapp/feature/chat/widgets/my_message_card.dart';
 import 'package:whatsapp/feature/chat/widgets/sender_message_card.dart';
+import 'package:whatsapp/model/message.dart';
 
 class ChatList extends ConsumerStatefulWidget {
   final String recieverUserId;
+  final bool isGroupChat;
   const ChatList({
     super.key,
     required this.recieverUserId,
+    required this.isGroupChat,
   });
 
   @override
@@ -46,8 +48,11 @@ class _ChatListState extends ConsumerState<ChatList> {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<List<Message>>(
-      stream:
-          ref.watch(chatControllerProvider).chatStream(widget.recieverUserId),
+      stream: widget.isGroupChat
+          ? ref
+              .read(chatControllerProvider)
+              .groupChatStream(widget.recieverUserId)
+          : ref.read(chatControllerProvider).chatStream(widget.recieverUserId),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Loader();
@@ -61,6 +66,15 @@ class _ChatListState extends ConsumerState<ChatList> {
           itemBuilder: (context, index) {
             final messageData = snapshot.data![index];
             var timeSent = DateFormat.Hm().format(messageData.timeSent);
+            if (!messageData.isSeen &&
+                messageData.recieverid ==
+                    FirebaseAuth.instance.currentUser!.uid) {
+              ref.read(chatControllerProvider).setChatMessageSeen(
+                    context,
+                    messageData.messageId,
+                    widget.recieverUserId,
+                  );
+            }
             if (messageData.senderId ==
                 FirebaseAuth.instance.currentUser!.uid) {
               return MyMessageCard(
@@ -75,6 +89,7 @@ class _ChatListState extends ConsumerState<ChatList> {
                   true,
                   messageData.type,
                 ),
+                isSeen: messageData.isSeen,
               );
             }
             return SenderMessageCard(

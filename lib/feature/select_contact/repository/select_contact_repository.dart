@@ -45,18 +45,20 @@ class SelectContactRepository {
         );
         if (selectedPhoneNum == userData.phoneNumber) {
           isFound = true;
-          Navigator.pushNamed(
-            context,
-            MobileChatScreen.routeName,
-            arguments: {
-              'name': userData.name,
-              'uid': userData.uid,
-            },
-          );
+          if (context.mounted) {
+            Navigator.pushNamed(
+              context,
+              MobileChatScreen.routeName,
+              arguments: {
+                'name': userData.name,
+                'uid': userData.uid,
+              },
+            );
+          }
         }
       }
 
-      if (!isFound) {
+      if (!isFound && context.mounted) {
         showSnackBar(
           context: context,
           content: 'This number does not exist on this app.',

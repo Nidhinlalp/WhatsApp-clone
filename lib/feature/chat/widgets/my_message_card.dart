@@ -1,8 +1,10 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:swipe_to/swipe_to.dart';
+
 import 'package:whatsapp/feature/chat/widgets/display_text_image_gif.dart';
 
-import '../../../colors.dart';
+import '../../../core/style/colors.dart';
 import '../../../common/enums/masseg_enum.dart';
 
 class MyMessageCard extends StatelessWidget {
@@ -12,6 +14,7 @@ class MyMessageCard extends StatelessWidget {
   final VoidCallback onLeftSwipe;
   final String repliedText;
   final String username;
+  final bool isSeen;
   final MessageEnum repliedMessageType;
 
   const MyMessageCard({
@@ -22,6 +25,7 @@ class MyMessageCard extends StatelessWidget {
     required this.onLeftSwipe,
     required this.repliedText,
     required this.username,
+    required this.isSeen,
     required this.repliedMessageType,
   }) : super(key: key);
 
@@ -108,9 +112,10 @@ class MyMessageCard extends StatelessWidget {
                       const SizedBox(
                         width: 5,
                       ),
-                      const Icon(
-                        Icons.done_all,
+                      Icon(
+                        isSeen ? Icons.done_all : Icons.done,
                         size: 20,
+                        color: isSeen ? Colors.blue : Colors.white60,
                       ),
                     ],
                   ),

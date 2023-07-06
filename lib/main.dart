@@ -6,8 +6,8 @@ import 'package:whatsapp/common/widgets/loader.dart';
 import 'package:whatsapp/feature/auth/controller/auth_controller.dart';
 import 'package:whatsapp/feature/landing/screens/landing_screen.dart';
 import 'package:whatsapp/router.dart';
-import 'package:whatsapp/screens/mobile_layout_screen.dart';
-import 'colors.dart';
+import 'package:whatsapp/mobile_layout_screen.dart';
+import 'core/style/colors.dart';
 import 'firebase_options.dart';
 
 Future<void> main() async {

@@ -54,6 +54,8 @@ dependencies:
   path_provider: ^2.0.11
   audioplayers: ^4.1.0
   swipe_to: ^1.0.2
+  story_view: ^0.14.0
+  agora_uikit: any
 
 dev_dependencies:
   flutter_test:

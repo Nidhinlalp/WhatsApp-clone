@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:whatsapp/common/utils/utils.dart';
 import 'package:whatsapp/model/user_model.dart';
-import 'package:whatsapp/screens/mobile_layout_screen.dart';
+import 'package:whatsapp/mobile_layout_screen.dart';
 
 import '../../../common/repository/common_firebase_storage_repository.dart';
 import '../screens/otp_screen.dart';

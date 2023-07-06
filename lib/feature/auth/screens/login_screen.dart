@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:whatsapp/common/utils/utils.dart';
 import 'package:whatsapp/feature/auth/controller/auth_controller.dart';
 
-import '../../../colors.dart';
+import '../../../core/style/colors.dart';
 import '../../../common/widgets/custombutton.dart';
 
 class LoginScreen extends ConsumerStatefulWidget {

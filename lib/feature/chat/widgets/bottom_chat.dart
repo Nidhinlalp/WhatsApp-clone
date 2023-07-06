@@ -7,19 +7,22 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_sound/public/flutter_sound_recorder.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
+
 import 'package:whatsapp/common/provider/message_replay_provider.dart';
 import 'package:whatsapp/common/utils/utils.dart';
 import 'package:whatsapp/feature/chat/controller/chat_controller.dart';
 import 'package:whatsapp/feature/chat/widgets/message_replay_preview.dart';
 
-import '../../../colors.dart';
+import '../../../core/style/colors.dart';
 import '../../../common/enums/masseg_enum.dart';
 
 class BottomChatField extends ConsumerStatefulWidget {
   final String recieverUserId;
+  final bool isGroupChat;
   const BottomChatField({
     super.key,
     required this.recieverUserId,
+    required this.isGroupChat,
   });
 
   @override
@@ -82,6 +85,7 @@ class _BottomChatFieldState extends ConsumerState<BottomChatField> {
             _massegeController.text.trim(),
             context,
             widget.recieverUserId,
+            widget.isGroupChat,
           );
 
       setState(() {
@@ -113,6 +117,7 @@ class _BottomChatFieldState extends ConsumerState<BottomChatField> {
           context,
           widget.recieverUserId,
           messageEnum,
+          widget.isGroupChat,
         );
   }
 
@@ -137,6 +142,7 @@ class _BottomChatFieldState extends ConsumerState<BottomChatField> {
             context,
             gif.url,
             widget.recieverUserId,
+            widget.isGroupChat,
           );
     }
   }

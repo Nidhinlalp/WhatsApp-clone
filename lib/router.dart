@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:whatsapp/common/widgets/error.dart';
 import 'package:whatsapp/feature/auth/screens/login_screen.dart';
@@ -5,6 +7,11 @@ import 'package:whatsapp/feature/auth/screens/otp_screen.dart';
 import 'package:whatsapp/feature/auth/screens/user_information.dart';
 import 'package:whatsapp/feature/select_contact/screens/select_contact_screen.dart';
 import 'package:whatsapp/feature/chat/screens/mobile_chat_screen.dart';
+import 'package:whatsapp/feature/status/screens/confirm_status_screen.dart';
+
+import 'feature/group/screens/create_group_screen.dart';
+import 'feature/status/screens/status_screen.dart';
+import 'model/status_model.dart';
 
 Route<dynamic> generateRoute(RouteSettings settings) {
   switch (settings.name) {
@@ -31,11 +38,33 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       final arguments = settings.arguments as Map<String, dynamic>;
       final name = arguments['name'];
       final uid = arguments['uid'];
+      final isGroupChat = arguments['isGroupChat'];
+      final profilePic = arguments['profilePic'];
       return MaterialPageRoute(
         builder: (context) => MobileChatScreen(
           name: name,
           uid: uid,
+          isGroupChat: isGroupChat,
+          profilePic: profilePic,
         ),
+      );
+    case ConfirmStatusScreen.routeName:
+      final file = settings.arguments as File;
+      return MaterialPageRoute(
+        builder: (context) => ConfirmStatusScreen(
+          file: file,
+        ),
+      );
+    case StatusScreen.routeName:
+      final status = settings.arguments as Status;
+      return MaterialPageRoute(
+        builder: (context) => StatusScreen(
+          status: status,
+        ),
+      );
+    case CreateGroupScreen.routeName:
+      return MaterialPageRoute(
+        builder: (context) => const CreateGroupScreen(),
       );
 
     default:

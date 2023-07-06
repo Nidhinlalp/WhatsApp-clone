@@ -39,7 +39,7 @@ class MessageReplyPreview extends ConsumerWidget {
                 onTap: () => cancelReply(ref),
                 child: const Icon(
                   Icons.close,
-                  size: 20,
+                  size: 50,
                 ),
               )
             ],
